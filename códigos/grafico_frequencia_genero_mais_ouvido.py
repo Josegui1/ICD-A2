@@ -12,8 +12,10 @@ source = mp.ColumnDataSource(data = data)
 
 # Criando o gráfico em si
 
+mp.output_file("frequencia_X_genero_mais_ouvido.html")
+
 figure = mp.figure(y_range = lista_estilos_ordenada)    
-figure.hbar(y = lista_estilos_ordenada, right = frequencia_absoluta_genero_favorito, height = 0.9)
+figure.hbar(y = "estilos", right = "frequencia", source = source, height = 0.9)
 mp.show(figure)       
 
 

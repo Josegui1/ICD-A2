@@ -3,6 +3,9 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.io import output_file, save, show
 from bokeh.models import ColumnDataSource
+from bokeh.transform import linear_cmap
+import seaborn as sns
+import numpy as np
 
 # Criando o dataframe
 
@@ -13,6 +16,7 @@ dataframe = pd.read_csv(r"C:\Users\jguil\Documents\Datasets_for_analysis\Music_a
 dataframe = dataframe.loc[dataframe["BPM"] <= 500] 
 dataframe = dataframe.loc[dataframe["BPM"] >= 30] 
 dataframe = dataframe.loc[dataframe["Hours per day"] <= 24]
+
 
 """
        'Timestamp', 'Age', 'Primary streaming service', 'Hours per day',
@@ -26,3 +30,4 @@ dataframe = dataframe.loc[dataframe["Hours per day"] <= 24]
        'Anxiety', 'Depression', 'Insomnia', 'OCD', 'Music effects',
        'Permissions'
 """  
+
