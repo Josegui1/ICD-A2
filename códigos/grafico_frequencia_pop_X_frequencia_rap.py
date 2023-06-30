@@ -1,3 +1,5 @@
+# Heatmap por transparência
+
 # importando módulo principal
 
 import modulo_principal as mp
@@ -21,12 +23,51 @@ gradiente = [0.330, 0.510, 0.630, 0.570,
              0.150, 0.270, 0.690, 0.870,
              0.030, 0.210, 0.450, 0.810]
 
+valores_numericos_ordenados = ["27", "41", "49", "42",
+                               "8", "34", "80", "58",
+                               "10", "25", "52", "79",
+                               "2", "16", "35", "63"]
+
+data = {"frequencia_eixo_x": frequencia_eixo_x, 
+        "frequencia_eixo_y": frequencia_eixo_y,
+        "gradiente": gradiente,
+        "valores_numericos_ordenados": valores_numericos_ordenados}
+source = mp.ColumnDataSource(data = data)
+
 #O gráfico em si
 
 mp.output_file("grafico_frequencia_rap_X_frequencia_pop.html")
 
-figure = mp.figure(x_range = ["Never", "Rarely", "Sometimes", "Very frequently"],
-                   y_range = ["Never", "Rarely", "Sometimes", "Very frequently"])
-figure.square(x = frequencia_eixo_x, y = frequencia_eixo_y, color = "darkred", fill_alpha = gradiente, size = 100)
-mp.show(figure)
+heatmap_transparencia = mp.figure(x_range = ["Never", "Rarely", "Sometimes", "Very frequently"],
+                   y_range = ["Never", "Rarely", "Sometimes", "Very frequently"], width = 1000)
+heatmap_transparencia.rect(x = "frequencia_eixo_x", y = "frequencia_eixo_y", color = "darkred", fill_alpha = "gradiente", width = 1, height = 1, source = source)
+numeros = mp.LabelSet(x = "frequencia_eixo_x", y = "frequencia_eixo_y", text = "valores_numericos_ordenados", source = source, render_mode = "canvas")
+heatmap_transparencia.add_layout(numeros) # Utilizei isto para plotar os números respectivos de cada casa do heatmap
+
+# Personalizações gerais do gráfico
+    # Título
+heatmap_transparencia.title = "Heatmap feito com transpar�ncia frequ�ncia ouve pop X frequ�ncia ouve rap"
+heatmap_transparencia.title_location = "above"
+heatmap_transparencia.title.align = "center"
+heatmap_transparencia.title.text_font_size = "20px"
+heatmap_transparencia.title.text_font = "Arial"
+heatmap_transparencia.title.background_fill_color = "#CCCAC6"
+heatmap_transparencia.title.background_fill_alpha = 0.5
+heatmap_transparencia.title.border_line_color = "black"
+heatmap_transparencia.title.border_line_alpha = 0.5
+    # Fundo
+heatmap_transparencia.background_fill_color = "#FFFDF7"
+heatmap_transparencia.grid.grid_line_alpha = 0.2
+    # Eixos
+heatmap_transparencia.axis.axis_label_text_font = "Arial"
+heatmap_transparencia.axis.axis_label_text_font_size = "20px"
+
+# Personalização específica do gráfico
+    # Eixos
+heatmap_transparencia.xaxis.axis_label = "frequ�ncia pop"
+heatmap_transparencia.yaxis.axis_label = "frequ�ncia rap"
+
+# Exibindo o gráfico
+
+mp.show(heatmap_transparencia)
 
