@@ -2,6 +2,8 @@
 import pandas as pd
 from bokeh.plotting import figure
 from bokeh.io import output_file, save, show
+from bokeh.layouts import row
+from bokeh.server.server import Server
 from bokeh.models import ColumnDataSource, LabelSet
 
 # Criando o dataframe
